@@ -4,12 +4,22 @@ class Ride < ActiveRecord::Base
   belongs_to :user
 
   def take_ride
-    error = 'Sorry.';
-    if self.user.tickets < self.attraction.tickets
+    error = 'Sorry.'
+    insufficient_tickets = self.user.tickets < self.attraction.tickets
+    insufficient_height = self.user.height < self.attraction.min_height
+    if insufficient_tickets
       error += " You do not have enough tickets to ride the #{self.attraction.name}."
-    elsif self.user.height < self.attraction.min_height
+    end
+    if insufficient_height
       error += " You are not tall enough to ride the #{self.attraction.name}."
     end
-    return error
+    unless error == 'Sorry.'
+      return error
+    else
+      self.user.tickets -= self.attraction.tickets
+      self.user.nausea += self.attraction.nausea_rating
+      self.user.happiness += self.attraction.happiness_rating
+      self.user.save
+    end
   end
 end
