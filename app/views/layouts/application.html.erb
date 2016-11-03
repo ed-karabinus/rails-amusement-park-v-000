@@ -30,8 +30,12 @@
     </div>
 
     <!-- content -->
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header>
     <div class="container"  role="main">
-      <%= yield %>
+      <%= render 'layouts/messages' %>
+    <%= yield %>
     </div>
 
   </body>
