@@ -1,6 +1,11 @@
-<p>Name: <%= @user.name %></p>
-<p>Height: <%= @user.height %></p>
-<p>Happiness: <%= @user.happiness %></p>
-<p>Nausea: <%= @user.nausea %></p>
-<p>Tickets: <%= @user.tickets %></p>
-<p>Mood: <%= @user.mood %></p>
+<p>Name: <%= @user.name if @user.try(:name) %></p>
+<% unless @user.admin %>
+  <p>Height: <%= @user.height %></p>
+  <p>Happiness: <%= @user.happiness %></p>
+  <p>Nausea: <%= @user.nausea %></p>
+  <p>Tickets: <%= @user.tickets %></p>
+  <p>Mood: <%= @user.mood %></p>
+<% else %>
+  <p>ADMIN</p>
+<% end %>
+<p><%= link_to "See attractions", attractions_path %></p>
