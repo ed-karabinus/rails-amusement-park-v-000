@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   resources :users
   resources :rides
-  resources :attractions
+  resources :attractions, only: [:index, :show]
+
+  post '/attractions/:id', to: 'attractions#take_ride', as: :take_ride
 
   get '/signin', to: 'sessions#new', as: :new_session
 
