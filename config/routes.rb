@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :rides
-  resources :attractions, only: [:index, :show]
+  resources :attractions, only: [:index, :show, :new, :create]
 
   post '/attractions/:id', to: 'attractions#take_ride', as: :take_ride
 

@@ -1,10 +1,24 @@
 class AttractionsController < ApplicationController
   def index
     @attractions = Attraction.all
+    current_user
   end
 
   def show
     @attraction = Attraction.find_by(id: params[:id])
+  end
+
+  def new
+    @attraction = Attraction.new
+  end
+
+  def create
+    @attraction = Attraction.new(attraction_params)
+    if @attraction.save
+      redirect_to attraction_path(@attraction)
+    else
+      redirect_to new_attraction_path
+    end
   end
 
   def take_ride
@@ -24,5 +38,11 @@ class AttractionsController < ApplicationController
       flash[:ticket_alert] = "You do not have enough tickets to ride the #{@attraction.name}"
     end
     redirect_to user_path(current_user)
+  end
+
+  private
+
+  def attraction_params
+    params.require(:attraction).permit(:name, :nausea_rating, :min_height, :happiness_rating, :tickets)
   end
 end
