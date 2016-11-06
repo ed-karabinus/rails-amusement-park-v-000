@@ -6,6 +6,7 @@ class AttractionsController < ApplicationController
 
   def show
     @attraction = Attraction.find_by(id: params[:id])
+    current_user
   end
 
   def new
@@ -38,6 +39,20 @@ class AttractionsController < ApplicationController
       flash[:ticket_alert] = "You do not have enough tickets to ride the #{@attraction.name}"
     end
     redirect_to user_path(current_user)
+  end
+
+  def edit
+    @attraction = Attraction.find_by(id: params[:id])
+  end
+
+  def update
+    @attraction = Attraction.find_by(id: params[:id])
+    if @attraction.update(attraction_params)
+      flash[:success_notice] = "You edited #{@attraction.name}"
+      redirect_to attraction_path(@attraction)
+    else
+      redirect_to edit_attraction_path(@attraction)
+    end
   end
 
   private

@@ -1,4 +1,5 @@
 <%= render @attractions %>
-<% if @current_user.try(:admin) == true %>
+
+<% if @current_user.try(:admin) %>
   <p><%= link_to "New Attraction", new_attraction_path %></p>
 <% end %>

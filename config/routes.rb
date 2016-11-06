@@ -3,9 +3,8 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  resources :users
-  resources :rides
-  resources :attractions, only: [:index, :show, :new, :create]
+  resources :users, only: [:show, :new, :create]
+  resources :attractions, only: [:index, :show, :new, :create, :edit, :update]
 
   post '/attractions/:id', to: 'attractions#take_ride', as: :take_ride
 

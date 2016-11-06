@@ -1,1 +1,5 @@
-<p><%= link_to "Go on #{attraction.name}", attraction_path(attraction) %></p>
+<% if @current_user.try(:admin) %>
+  <p><%= link_to "Show #{attraction.name}", attraction_path(attraction) %></p>
+<% else %>
+  <p><%= link_to "Go on #{attraction.name}", attraction_path(attraction) %></p>
+<% end %>
